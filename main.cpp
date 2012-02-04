@@ -7,7 +7,8 @@ File created by Ben-R-R
 
 int main( int argc, char* args[] ) { 
 	//The images 
-	SDL_Surface* hello = NULL; 
+	SDL_Surface* background = NULL; 
+	SDL_Surface* temp = NULL;
 	SDL_Surface* screen = NULL;
 
 	//Start SDL 
@@ -17,18 +18,20 @@ int main( int argc, char* args[] ) {
 	screen = SDL_SetVideoMode( 640, 480, 32, SDL_SWSURFACE ); 
 
 	//Load image
-	hello = SDL_LoadBMP( "hello.bmp" );
+	temp = SDL_LoadBMP( "hello.bmp" );
+	background = SDL_DisplayFormat(temp);
+	SDL_FreeSurface(temp);
 
 	//Apply image to screen 
-	SDL_BlitSurface( hello, NULL, screen, NULL ); 
+	SDL_BlitSurface( background, NULL, screen, NULL ); 
 
 	//Update Screen 
 	SDL_Flip( screen ); 
 
 	//Pause 
-	SDL_Delay( 2000 );
+	SDL_Delay( 5000 );
 	//Free the loaded image 
-	SDL_FreeSurface( hello ); 
+	SDL_FreeSurface( background ); 
 	//Quit SDL 
 	SDL_Quit();
 	return 0; 

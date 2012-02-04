@@ -14,7 +14,7 @@ public:
 	float x;
 	float y;
 
-	void setValue(int x, int y, int t)
+	void setValue(int x, int y, int t);
 
 	/*
 	Pass the time since the last call to this method. 
