@@ -27,7 +27,7 @@ Classes:
 #include "eventListener.h"
 #include "SDL.h"
 
-/*===================================================================
+/*============  MovementFunction ====================================
 MovementFunction: This is a Base class designed to provide a
 minimal position interface for more complex classes.
 
@@ -46,14 +46,19 @@ protected:
 	/* update the position stored in rectPos */
 	void setSDL_RecPos();
 
+	float boundX;
+	float boundY;
+	float width;
+	float height;
+
 	/*Checks the current position against the set bounds. 
 
-	calls eListener::doEvent(eventNum) if the object is outside 
-	the given bounds. 
+	calls eListener->doEvent(eventNum) if the location is 
+	out of bounds.
 
 	Should be called from update() after the x and y values 
-	are updated.*/
-	bool checkBounds();
+	are updated. */
+	virtual bool checkBounds();
 
 public:
 	/* Rectangle position used in drawing with the SDL library, only the x and y 
@@ -63,13 +68,15 @@ public:
 	float x;
 	float y;
 
+	virtual ~MovementFunction();
+
+	virtual MovementFunction* clone() const;
+
+
 	virtual void setBoundsListener(EventListener* listener, int eventNumber);
 	
 	virtual void setBounds(float x, float y, float width, float height);
 
-	virtual ~MovementFunction();
-
-	virtual MovementFunction* clone(const MovementFunction& mf);
 	
 	/* ==========  setTimeElapsed ==================
 	Sets the elapsed time. May or may not have effects 
@@ -79,12 +86,6 @@ public:
 		unsigned int t
 	*/
 	virtual void setTimeElapsed(unsigned int t);
-	
-	/* ==========  default constructor  ============
-	Zero initializes everything */
-	MovementFunction();
-
-	MovementFunction(float x, float y);
 
 	/* ==========  update  =========================
 	The default update function does nothing except add
@@ -94,7 +95,15 @@ public:
 		unsigned int frameTime  -  The amount of time you want to 
 			advance the function, usually the time since the last 
 			call to this function. */
-	virtual void update(unsigned int frameTime);
+	virtual bool update(unsigned int frameTime);
+
+	/* ==========  default constructor  ============
+	Zero initializes everything */
+	MovementFunction();
+
+	/* ==========  position only constructor =======
+	sets the position only */
+	MovementFunction(float x, float y);
 };
 
 /*============  MF_Linear  ==========================================
@@ -116,11 +125,13 @@ protected:
 
 public:
 	
+	virtual MF_Linear* clone() const;
+
 	virtual ~MF_Linear();
 
 	/* ========== Inherited Functions ================*/
 
-	virtual void update(unsigned int frameTime);
+	virtual bool update(unsigned int frameTime);
 
 	/* Using this function will also set the position
 	of the object relative the coordinates given during 
@@ -162,13 +173,37 @@ Author(s)
 ===================================================================*/
 class MF_Polar: public MovementFunction{
 protected:
-	MovementFunction coords;
-	MovementFunction radiaus;
+	MovementFunction* _coords;
+	MovementFunction* _origin;
+
+	virtual void convertCoords();
+
 public:
-	virtual ~MF_Polar();
-	virtual update();
+
 	MF_Polar();
+
+	MF_Polar::MF_Polar( const MF_Polar& other );
+	
+	/* Clones the input functions */
 	MF_Polar(const MovementFunction& coords, const MovementFunction& origin);
+
+
+	virtual ~MF_Polar();
+
+
+	virtual MF_Polar* clone() const;
+
+	MF_Polar& MF_Polar::operator=( const MF_Polar& rhs );
+
+	
+	virtual bool update(unsigned int framTime);
+
+	virtual void setOrigin(const MovementFunction& origin);
+
+	virtual void setCoords(const MovementFunction& coords);
+
 };
+
+
 
 #endif

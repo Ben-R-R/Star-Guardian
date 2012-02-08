@@ -3,7 +3,7 @@
 
 class EventListener{
 public:
-	virtual void doEvent(int eventNumber);
-}
+	virtual void doEvent(int eventNumber) = 0;
+};
 
 #endif
