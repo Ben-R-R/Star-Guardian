@@ -31,13 +31,15 @@ Dependencies:
 MovementFunction::MovementFunction()
 	: rectPos(), 
 	x(0),
-	y(0)
+	y(0),
+	boundsSet(false)
 {}
 
 MovementFunction::MovementFunction(float X, float Y)
 	: rectPos(), 
 	x(X), // sorry for the odd syntax, can't use 'this' here 
-    y(Y)
+    y(Y),
+	boundsSet(false)
 {
 	rectPos.h = 1;
 	rectPos.w = 1;
@@ -59,7 +61,9 @@ MovementFunction::~MovementFunction()
 /* protected functions */
 
 bool MovementFunction::checkBounds(){
-	
+	if(!boundsSet){
+		return false;
+	}
 	
 	if((x < boundX || x > boundX + width || y < boundY || y > boundY + width) && eListener){
 		eListener->doEvent(eventNum);

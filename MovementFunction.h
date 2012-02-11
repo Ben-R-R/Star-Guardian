@@ -46,6 +46,8 @@ protected:
 	/* update the position stored in rectPos */
 	void setSDL_RecPos();
 
+	bool boundsSet;
+
 	float boundX;
 	float boundY;
 	float width;
@@ -122,6 +124,8 @@ protected:
 
 	float xStart;
 	float yStart;
+
+	
 
 public:
 	
