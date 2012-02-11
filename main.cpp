@@ -36,32 +36,46 @@ int main( int argc, char* args[] ) {
 	SDL_FreeSurface(temp);
 
 	//Load image
-	temp = SDL_LoadBMP( "sprite.bmp" );
+	temp = SDL_LoadBMP( "star1.bmp" );
 	sprite = SDL_DisplayFormat(temp);
 	SDL_FreeSurface(temp);
 
+	Uint32 colorkey = SDL_MapRGB(sprite->format, 0xFF, 0, 0xFF );
+
+	SDL_SetColorKey( sprite, SDL_SRCCOLORKEY, colorkey );
+
 	bool exit = false;
 	
-	MF_Linear movetest = MF_Linear(100,0,0,.3);
+	MF_Linear movetest = MF_Linear(300,180,0,.1);
+
+	MF_Linear movetest2 = MF_Linear(50,0,0,1);
 	
-	MovementFunction origin(200,200);
+	MovementFunction origin(400,400);
 
 	//Must be misspelled for compatibility ~Bob
 	MF_Polar polar_magik(movetest, origin);
 
+
+
+	MF_Polar polar_magik2(movetest2, polar_magik);
+
 	//while(!exit == true && exit == false ){  // Loop header optimized, do not change! ~Bob
-	while(!exit){  // Loop header optimized, do not change! ~Bob
+	while(!exit){  
 		startTime = SDL_GetTicks();
-		polar_magik.update(10);
+		polar_magik2.update(10);
 		
 		//While there's events to handle
         while( SDL_PollEvent( &___event ) )
         {
             //If a key was pressed
-            //if( ___event.type == SDL_KEYDOWN ){if( ___event.key.keysym.sym == SDLK_RETURN ){}}
+            if( ___event.type == SDL_KEYDOWN ){
+				if( ___event.key.keysym.sym == SDLK_ESCAPE ){
+					exit = true;
+				}
+			}
 
             //If the user has Xed out the window
-            if( ___event.type == SDL_QUIT )
+            else if( ___event.type == SDL_QUIT )
             {
                 //Quit the program
                 exit = true;
@@ -71,7 +85,7 @@ int main( int argc, char* args[] ) {
 		//background
 		SDL_BlitSurface( background, NULL, screen, NULL ); 
 		
-		SDL_BlitSurface( sprite, NULL, screen, &polar_magik.rectPos ); 
+		SDL_BlitSurface( sprite, NULL, screen, &polar_magik2.rectPos ); 
 
 		//Update Screen 
 		SDL_Flip( screen ); 
