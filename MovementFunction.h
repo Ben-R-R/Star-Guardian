@@ -24,8 +24,8 @@ Classes:
 #ifndef MOVEMENTFUNCTION_H
 #define MOVEMENTFUNCTION_H
 
+#include "constants.h"
 #include "eventListener.h"
-#include "SDL.h"
 
 /*============  MovementFunction ====================================
 MovementFunction: This is a Base class designed to provide a
