@@ -9,12 +9,21 @@ File created by Ben-R-R
 
 #include "MovementFunction.h"
 
+#include "Sprite.h"
+#include <iostream>
+
+#include "logger.h"
+
 int main( int argc, char* args[] ) { 
+
+	initLogger();
+
 	//The images 
 	SDL_Surface* background = NULL; 
 	SDL_Surface* sprite = NULL; 
 	SDL_Surface* temp = NULL;
 	SDL_Surface* screen = NULL;
+	
 
 	// event might be a reserved word, putting three just in case. ~Bob
 	SDL_Event ___event;
@@ -52,9 +61,16 @@ int main( int argc, char* args[] ) {
 	
 	MovementFunction origin(400,400);
 
+	SDL_Rect testRect;
+	
+	testRect.w = 17;
+	testRect.h = 19;
+	
+
+	Sprite* testSpt = Sprite::createNew("Crystal1.bmp",testRect, 100);
+
 	//Must be misspelled for compatibility ~Bob
 	MF_Polar polar_magik(movetest, origin);
-
 
 
 	MF_Polar polar_magik2(movetest2, polar_magik);
@@ -85,7 +101,17 @@ int main( int argc, char* args[] ) {
 		//background
 		SDL_BlitSurface( background, NULL, screen, NULL ); 
 		
-		SDL_BlitSurface( sprite, NULL, screen, &polar_magik2.rectPos ); 
+		//SDL_BlitSurface( background, NULL, testSprite->getCurrent(10), NULL);
+
+		testRect.x = 100;
+		testRect.y = 100;
+		
+		testSpt->drawCurrent(screen, &testRect, 10);
+			
+		
+
+
+		SDL_UpperBlit( sprite, NULL, screen, &polar_magik2.rectPos ); 
 
 		//Update Screen 
 		SDL_Flip( screen ); 
@@ -117,5 +143,8 @@ int main( int argc, char* args[] ) {
 	SDL_FreeSurface( background ); 
 	//Quit SDL 
 	SDL_Quit();
+
+	closeLogger();
+
 	return 0; 
 }

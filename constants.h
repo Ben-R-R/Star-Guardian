@@ -16,7 +16,7 @@ const float PI_f = 3.14159265358979323846f;
 
 #ifdef LINUX
 #include <SDL.h>
-#else 
+#else c
 #include "SDL.h"
 #endif
 
