@@ -3,8 +3,6 @@ File created by Ben-R-R
 */
 
 //Include SDL functions and datatypes 
-#include "SDL.h"
-
 #include "constants.h"
 
 #include "MovementFunction.h"
