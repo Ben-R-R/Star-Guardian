@@ -53,8 +53,13 @@ Sprite* Sprite::createNew(std::string file, const SDL_Rect &frameSize, int frame
 Sprite::Sprite(SDL_Surface * image, const SDL_Rect &size, int fT):
 frameSets(1)
 {
+	
 	spriteSheet = image;
 	frameSize = size;
+	
+	Uint32 colorkey = SDL_MapRGB(spriteSheet->format, 104, 144, 168 );
+
+	SDL_SetColorKey( spriteSheet, SDL_SRCCOLORKEY, colorkey );
 
 	int tempX = image->w / size.w;
 	int tempY = image->h / size.h;

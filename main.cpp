@@ -14,6 +14,9 @@ File created by Ben-R-R
 
 int main( int argc, char* args[] ) { 
 
+	
+	
+
 	initLogger();
 
 	//The images 
@@ -42,6 +45,39 @@ int main( int argc, char* args[] ) {
 	background = SDL_DisplayFormat(temp);
 	SDL_FreeSurface(temp);
 
+	
+
+	bool exit = false;
+	
+	
+
+	
+	
+	/*=================================
+	*    Create Makoto
+	====================================*/
+	std::vector<int> makoto1(6);
+	std::vector<int> makoto2(6);
+
+	for(int i = 0; i < 6; i++){
+		makoto1[i] = i;
+		makoto2[i] = i + 6;
+	}
+
+	SDL_Rect testRect;
+	
+	testRect.w = 80;
+	testRect.h = 80;
+
+	Sprite* testSpt = Sprite::createNew("makoto3.bmp",testRect, 70);
+
+	testSpt->addSet(makoto1);
+	testSpt->addSet(makoto2);
+
+	/*==================================
+	               Spark thing
+	====================================*/
+
 	//Load image
 	temp = SDL_LoadBMP( "star1.bmp" );
 	sprite = SDL_DisplayFormat(temp);
@@ -51,27 +87,22 @@ int main( int argc, char* args[] ) {
 
 	SDL_SetColorKey( sprite, SDL_SRCCOLORKEY, colorkey );
 
-	bool exit = false;
-	
 	MF_Linear movetest = MF_Linear(300,180,0,.1);
 
 	MF_Linear movetest2 = MF_Linear(50,0,0,1);
 	
 	MovementFunction origin(400,400);
 
-	SDL_Rect testRect;
-	
-	testRect.w = 17;
-	testRect.h = 19;
-	
-
-	Sprite* testSpt = Sprite::createNew("Crystal1.bmp",testRect, 100);
-
 	//Must be misspelled for compatibility ~Bob
 	MF_Polar polar_magik(movetest, origin);
 
 
 	MF_Polar polar_magik2(movetest2, polar_magik);
+
+
+	/*=================================
+	                Main Loop
+	===================================*/
 
 	//while(!exit == true && exit == false ){  // Loop header optimized, do not change! ~Bob
 	while(!exit){  
@@ -101,13 +132,25 @@ int main( int argc, char* args[] ) {
 		
 		//SDL_BlitSurface( background, NULL, testSprite->getCurrent(10), NULL);
 
-		testRect.x = 100;
-		testRect.y = 100;
-		
-		testSpt->drawCurrent(screen, &testRect, 10);
-			
-		
+		//testRect.x = 100;
+		//testRect.y = 100;
+		Uint8 *keystates = SDL_GetKeyState( NULL );
 
+		
+			
+		if(keystates[SDLK_DOWN]){
+			testRect.x += 1;
+			testSpt->setSet(1);
+			//testRect.y = 100;
+		} else if(keystates[SDLK_UP]){
+			testRect.x -= 1;
+			testSpt->setSet(1);
+			//testRect.y = 100;
+		} else {
+			testSpt->setSet(2);
+		}
+
+		testSpt->drawCurrent(screen, &testRect, 10);
 
 		SDL_UpperBlit( sprite, NULL, screen, &polar_magik2.rectPos ); 
 
