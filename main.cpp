@@ -138,11 +138,11 @@ int main( int argc, char* args[] ) {
 
 		
 			
-		if(keystates[SDLK_DOWN]){
+		if(keystates[SDLK_RIGHT]){
 			testRect.x += 1;
 			testSpt->setSet(1);
 			//testRect.y = 100;
-		} else if(keystates[SDLK_UP]){
+		} else if(keystates[SDLK_LEFT]){
 			testRect.x -= 1;
 			testSpt->setSet(1);
 			//testRect.y = 100;
