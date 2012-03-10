@@ -2,19 +2,19 @@
 CC=g++
 
 # Objects
-OBJECTS=main.o MovementFunction.o 
+OBJECTS=main.o MovementFunction.o logger.o Sprite.o
 
 # objects that don't need to be compiled every time. 
 STATIC=
 
 # Source Files
-SOURCE=main.cpp MovementFunction.cpp 
+SOURCE=main.cpp MovementFunction.cpp logger.cpp Sprite.cpp
 
 # Compiler flags
-CPPFLAGS=-Wall  
+CPPFLAGS=-Wall $(shell sdl-config --cflags)
 
 # Linker flags
-LDFLAGS=
+LDFLAGS= $(shell sdl-config --libs)
 
 main: main.cpp
 	$(CC) $(CPPFLAGS) -c $(SOURCE)

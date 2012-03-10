@@ -2,7 +2,6 @@
 #define SPRITE_H
 
 #include "constants.h"
-
 #include <vector>
 #include <string>
 

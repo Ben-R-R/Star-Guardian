@@ -202,7 +202,7 @@ public:
 
 	virtual MF_Polar* clone() const;
 
-	MF_Polar& MF_Polar::operator=( const MF_Polar& rhs );
+	MF_Polar& operator=( const MF_Polar& rhs );
 
 	
 	virtual bool update(unsigned int framTime);
