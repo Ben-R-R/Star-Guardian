@@ -88,12 +88,18 @@ Sprite::~Sprite(){
 	SDL_FreeSurface(spriteSheet);
 }
 
-void Sprite::setSet(int set){
+void Sprite::setSet(unsigned int set){
 	setIndex = set;
+	if(frameIndex >= frameSets[set].size()){
+		frameIndex = 0;
+	}
 }
 
-void Sprite::setFrame(int frame){
+void Sprite::setFrame(unsigned int frame){
 	frameIndex = frame;
+	if(frameIndex >= frameSets[setIndex].size()){
+		frameIndex = frameSets[setIndex].size() % frame;
+	}
 }
 
 void Sprite::addSet(const std::vector<int> &setVec){

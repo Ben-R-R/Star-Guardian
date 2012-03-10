@@ -9,7 +9,7 @@ const float PI_f = 3.14159265358979323846f;
 #define SCREEN_BPP 32 
 #define TARGET_MS_PER_FRAME 50
 
-#define LOGGING_ENABLED 
+#define LOGGING_ENABLED
 
 // uncomment if compiling on a Linux platform 
 //#define LINUX

@@ -2,22 +2,10 @@
 #define SPRITE_H
 
 #include "constants.h"
-
-/*#ifdef LINUX
-#include <SDL.h>
-#else
-#include "SDL.h"
-#endif */
-
 #include <vector>
 #include <string>
 
 /* 
-======================================================================
-CAUTION do not extend this class, as using an extended class will
-lead to memory leaks
-======================================================================
-
 The basic idea here is we have one big SDL_Surface that has all the tiles on it.
 
 The tiles are indexed left to right, top to bottom, so like so:
@@ -62,8 +50,8 @@ private:
 	// don't call this either. Call createNew. Seriously. >_>
 	Sprite(SDL_Surface* image, const SDL_Rect &size, int frameTime);
 
-	// if you are reading this header file and not Ben, you don't care about this 
-	// function. 
+	// if you are reading this header file and are not Ben, you probably 
+	// don't care about this function. 
 	void updateTimer(unsigned int frameTime); // Done
 	
 	unsigned int frameIndex;
@@ -87,19 +75,27 @@ private:
 public:
 	
 
+
 	// returns a null pointer if there was an error 
 	static Sprite* createNew(std::string file, const SDL_Rect &frameSize, int frameTime);
-	 
 	
+	SDL_Rect* getSize(){return new SDL_Rect(frameSize);}
+	
+	// preserves x and y value in given rect.
+	void getSize(SDL_Rect &putHere){
+		putHere.w = frameSize.w; 
+		putHere.h = frameSize.h;
+	};
+
 	~Sprite();
 
 	// set the frameset 
-	void setSet(int set); 
+	void setSet(unsigned int set); 
 
 	void addSet(const std::vector<int> &setVec);
 
 	// sets the frame
-	void setFrame(int frame);
+	void setFrame(unsigned int frame);
 
 	// draws the current frame on the given surface at the given location
 	// the units on frame time are milliseconds. 
