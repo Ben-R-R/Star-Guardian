@@ -11,6 +11,11 @@ Description:
 	As a convention, classes that extend MovementFunction 
 	will be prefixed with "MF_"
 
+	Movement function classes should preserve the values in
+	the w and h fields of the rectPos member. This allows 
+	users to optimize collision detection by storing values
+	in the w and h fields.
+
 Dependencies:
 	SDL.h
 	eventListener.h
@@ -186,7 +191,7 @@ public:
 
 	MF_Polar();
 
-	MF_Polar::MF_Polar( const MF_Polar& other );
+	MF_Polar( const MF_Polar& other );
 	
 	/* Clones the input functions */
 	MF_Polar(const MovementFunction& coords, const MovementFunction& origin);

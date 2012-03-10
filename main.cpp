@@ -12,6 +12,8 @@ File created by Ben-R-R
 
 #include "logger.h"
 
+#include "mouse_move.h"
+
 int main( int argc, char* args[] ) { 
 
 	
@@ -49,9 +51,9 @@ int main( int argc, char* args[] ) {
 
 	bool exit = false;
 	
-	
+	SDL_ShowCursor(SDL_DISABLE);
 
-	
+	MouseMove * mouseFunc = new MouseMove();
 	
 	/*=================================
 	*    Create Makoto
@@ -109,6 +111,8 @@ int main( int argc, char* args[] ) {
 		startTime = SDL_GetTicks();
 		polar_magik2.update(10);
 		
+		mouseFunc->update(10);
+
 		//While there's events to handle
         while( SDL_PollEvent( &___event ) )
         {
@@ -150,7 +154,7 @@ int main( int argc, char* args[] ) {
 			testSpt->setSet(2);
 		}
 
-		testSpt->drawCurrent(screen, &testRect, 10);
+		testSpt->drawCurrent(screen, &(mouseFunc->rectPos)/*&testRect*/, 10);
 
 		SDL_UpperBlit( sprite, NULL, screen, &polar_magik2.rectPos ); 
 
