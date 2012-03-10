@@ -3,11 +3,11 @@
 
 #include "constants.h"
 
-#ifdef LINUX
+/*#ifdef LINUX
 #include <SDL.h>
 #else
 #include "SDL.h"
-#endif
+#endif */
 
 #include <vector>
 #include <string>

@@ -6,10 +6,8 @@ File created by Ben-R-R
 #include "constants.h"
 
 #include "MovementFunction.h"
-
 #include "Sprite.h"
 #include <iostream>
-
 #include "logger.h"
 
 int main( int argc, char* args[] ) { 

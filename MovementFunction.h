@@ -186,7 +186,7 @@ public:
 
 	MF_Polar();
 
-	MF_Polar::MF_Polar( const MF_Polar& other );
+	MF_Polar( const MF_Polar& other );
 	
 	/* Clones the input functions */
 	MF_Polar(const MovementFunction& coords, const MovementFunction& origin);
@@ -197,7 +197,7 @@ public:
 
 	virtual MF_Polar* clone() const;
 
-	MF_Polar& MF_Polar::operator=( const MF_Polar& rhs );
+	MF_Polar& operator=( const MF_Polar& rhs );
 
 	
 	virtual bool update(unsigned int framTime);
